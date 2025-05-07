@@ -1,0 +1,54 @@
+<div class="form-container">
+  <h2>Employee Form</h2>
+  <form name="employeeForm" ng-submit="formCtrl.submitForm()" novalidate>
+    <label>Name:</label>
+    <input type="text" name="name" ng-model="formCtrl.employee.name" required ng-minlength="2" />
+    <div class="error" ng-show="employeeForm.name.$touched && employeeForm.name.$invalid">
+      <span ng-show="employeeForm.name.$error.required">Name is required.</span>
+      <span ng-show="employeeForm.name.$error.minlength">Minimum 2 characters.</span>
+    </div>
+
+    <label>Email:</label>
+    <input type="email" name="email" ng-model="formCtrl.employee.email" required />
+    <div class="error" ng-show="employeeForm.email.$touched && employeeForm.email.$invalid">
+      <span ng-show="employeeForm.email.$error.required">Email is required.</span>
+      <span ng-show="employeeForm.email.$error.email">Invalid email format.</span>
+    </div>
+
+    <label>Position:</label>
+    <input type="text" name="position" ng-model="formCtrl.employee.position" required />
+    <div class="error" ng-show="employeeForm.position.$touched && employeeForm.position.$invalid">
+      <span ng-show="employeeForm.position.$error.required">Position is required.</span>
+    </div>
+
+    <button type="submit" ng-disabled="employeeForm.$invalid">
+      {{ formCtrl.editIndex === -1 ? 'Add' : 'Update' }}
+    </button>
+  </form>
+
+  <hr />
+  <label>🔍 Search:</label>
+  <input type="text" ng-model="formCtrl.searchKeyword" placeholder="Search by name/email/position" />
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Position</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="emp in formCtrl.employees | filter:formCtrl.filterEmployees">
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.position }}</td>
+        <td>
+          <button ng-click="formCtrl.editEmployee($index)">Edit</button>
+          <button ng-click="formCtrl.deleteEmployee($index)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

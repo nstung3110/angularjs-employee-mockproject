@@ -1,0 +1,22 @@
+<h2>Welcome to Home Page</h2>
+<p my-directive></p>
+
+<div ng-if="homeCtrl.loading">Loading user data...</div>
+<div ng-if="homeCtrl.error" class="error-msg">Failed to load user data. Please try again later.</div>
+
+<table ng-if="!homeCtrl.loading && !homeCtrl.error" class="employee-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Company</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in homeCtrl.users">
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.company.name }}</td>
+    </tr>
+  </tbody>
+</table>
